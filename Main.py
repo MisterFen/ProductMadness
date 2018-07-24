@@ -1,6 +1,7 @@
 import pygame
 import time
 import Config, BackgroundHandler
+from Player import Player
 
 pygame.init()
 
@@ -9,18 +10,26 @@ pygame.display.set_caption(Config.game_title)
 clock = pygame.time.Clock()
 
 BackgroundHandler.set_background()
+player = Player()
 
 def draw():
     BackgroundHandler.draw_background(gameDisplay)
+    player.draw(gameDisplay)
 
 def main():
-    gameExit = False
-    while not gameExit:
+    game_exit = False
+
+    while not game_exit:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_exit = True
+
         draw()
+
         pygame.display.update()
-        clock.tick(60)
-        print('Clock ticked')
+        clock.tick(Config.FPS)
 
 main()
+
 pygame.quit()
 quit()
