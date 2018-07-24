@@ -12,9 +12,11 @@ clock = pygame.time.Clock()
 BackgroundHandler.set_background()
 player = Player()
 
+
 def draw():
     BackgroundHandler.draw_background(gameDisplay)
     player.draw(gameDisplay)
+
 
 def main():
     game_exit = False
@@ -28,6 +30,7 @@ def main():
 
         pygame.display.update()
         clock.tick(Config.FPS)
+
 
 main()
 

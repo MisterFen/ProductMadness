@@ -1,6 +1,7 @@
 import Config
 import pygame
 
+
 class Player:
     img = pygame.image.load('art/player.png')
 
