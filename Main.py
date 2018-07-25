@@ -1,9 +1,6 @@
 import pygame
-import time
 import Config, BackgroundHandler, ObjectHandler, KeyboardHandler
-
 from Player import Player
-from ObjectHandler import objects
 
 pygame.init()
 

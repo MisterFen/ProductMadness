@@ -1,12 +1,13 @@
 import Config
 
-def check_all_collision(player, objects):
-    #Objects collision
+
+def check_object_collision(player, objects):
+    # Objects collision
     for i in objects:
         if check_collision(player, i):
             return True
 
-    #Boundary collision
+    # Boundary collision
     if player.x < 0:
         return True
     if player.x + player.width > Config.display_width:
@@ -15,6 +16,7 @@ def check_all_collision(player, objects):
         return True
     if player.y + player.height > Config.display_height:
         return True;
+
 
 def check_collision(player, object):
     if player.x < object.x + object.width:

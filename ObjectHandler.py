@@ -13,7 +13,6 @@ table6 = Table(table3.x, table3.y + table1.height + table_spacing_y)
 objects = [table1, table2, table3, table4, table5, table6]
 
 
-
 def draw_objects(display):
     for x in objects:
         x.draw(display)
