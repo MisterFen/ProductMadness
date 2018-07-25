@@ -1,6 +1,6 @@
 import pygame
 import time
-import Config, BackgroundHandler
+import Config, BackgroundHandler, ObjectHandler, KeyboardHandler
 from Player import Player
 
 pygame.init()
@@ -10,11 +10,13 @@ pygame.display.set_caption(Config.game_title)
 clock = pygame.time.Clock()
 
 BackgroundHandler.set_background()
+
 player = Player()
 
 
 def draw():
     BackgroundHandler.draw_background(gameDisplay)
+    ObjectHandler.draw_objects(gameDisplay)
     player.draw(gameDisplay)
 
 
@@ -25,6 +27,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_exit = True
+            KeyboardHandler.on_event(event, player)
+
+        KeyboardHandler.on_event_end(player)
 
         draw()
 
