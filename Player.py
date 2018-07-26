@@ -35,4 +35,5 @@ class Player:
             self.y += self.speed
             if check_object_collision(self, objects):
                 self.y -= self.speed
+
         display.blit(self.img, (self.x, self.y))
