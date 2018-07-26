@@ -1,5 +1,4 @@
 import pygame
-import time
 import Config, BackgroundHandler, ObjectHandler, KeyboardHandler
 from Player import Player
 
@@ -28,8 +27,6 @@ def main():
             if event.type == pygame.QUIT:
                 game_exit = True
             KeyboardHandler.on_event(event, player)
-
-        KeyboardHandler.on_event_end(player)
 
         draw()
 

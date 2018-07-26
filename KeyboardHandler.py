@@ -3,33 +3,25 @@ import pygame
 x_change = 0;
 y_change = 0;
 
+
 def on_event(event, player):
-    global x_change
-    global y_change
 
     if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_LEFT:
-            x_change -= player.speed
-        if event.key == pygame.K_RIGHT:
-            x_change += player.speed
-        if event.key == pygame.K_UP:
-            y_change -= player.speed
-        if event.key == pygame.K_DOWN:
-            y_change += player.speed
+        if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            player.moving_left = True
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            player.moving_right = True
+        if event.key == pygame.K_UP or event.key == pygame.K_w:
+            player.moving_up = True
+        if event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            player.moving_down = True
 
     if event.type == pygame.KEYUP:
-        if event.key == pygame.K_LEFT:
-            x_change += player.speed
-        if event.key == pygame.K_RIGHT:
-            x_change -= player.speed
-        if event.key == pygame.K_UP:
-            y_change += player.speed
-        if event.key == pygame.K_DOWN:
-            y_change -= player.speed
-
-
-def on_event_end(player):
-    global x_change
-    global y_change
-    player.x += x_change
-    player.y += y_change
+        if event.key == pygame.K_LEFT or event.key == pygame.K_a:
+            player.moving_left = False
+        if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
+            player.moving_right = False
+        if event.key == pygame.K_UP or event.key == pygame.K_w:
+            player.moving_up = False
+        if event.key == pygame.K_DOWN or event.key == pygame.K_s:
+            player.moving_down = False
