@@ -1,5 +1,5 @@
 import pygame
-import Config, BackgroundHandler, ObjectHandler, KeyboardHandler
+import Config, BackgroundHandler, ObjectHandler, KeyboardHandler, NPCHandler
 from Player import Player
 
 pygame.init()
@@ -16,7 +16,12 @@ player = Player()
 def draw():
     BackgroundHandler.draw_background(gameDisplay)
     ObjectHandler.draw_objects(gameDisplay)
+    NPCHandler.draw_npcs(gameDisplay)
     player.draw(gameDisplay)
+
+
+def on_tick():
+    NPCHandler.on_tick()
 
 
 def main():
@@ -27,7 +32,7 @@ def main():
             if event.type == pygame.QUIT:
                 game_exit = True
             KeyboardHandler.on_event(event, player)
-
+        on_tick()
         draw()
 
         pygame.display.update()

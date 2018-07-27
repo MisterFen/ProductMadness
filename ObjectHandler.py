@@ -1,9 +1,9 @@
 from Object import Table
 
-table_spacing_x = 200
+table_spacing_x = 165
 table_spacing_y = 200
 
-table1 = Table(50,0)
+table1 = Table(75,0)
 table2 = Table(table1.x+table1.width + table_spacing_x, 0)
 table3 = Table(table2.x+table2.width + table_spacing_x, 0)
 table4 = Table(table1.x, table1.y + table1.height + table_spacing_y)

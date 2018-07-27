@@ -1,8 +1,5 @@
 import pygame
 
-x_change = 0;
-y_change = 0;
-
 
 def on_event(event, player):
 
