@@ -17,6 +17,7 @@ class Player:
         self.moving_right = False
         self.moving_up = False
         self.moving_down = False
+        self.img_rect = self.img.get_rect()
 
     def draw(self, display):
         if self.moving_left:
