@@ -12,6 +12,8 @@ def on_event(event, player):
             player.moving_up = True
         if event.key == pygame.K_DOWN or event.key == pygame.K_s:
             player.moving_down = True
+        if event.key == pygame.K_e:
+            player.interact()
 
     if event.type == pygame.KEYUP:
         if event.key == pygame.K_LEFT or event.key == pygame.K_a:

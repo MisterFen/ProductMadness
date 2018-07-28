@@ -2,7 +2,7 @@ import Config
 import pygame
 from CollisionHandler import check_object_collision
 from ObjectHandler import objects
-
+import TargetHandler
 
 class Player:
     img = pygame.image.load('art/player.png')
@@ -18,6 +18,8 @@ class Player:
         self.moving_up = False
         self.moving_down = False
         self.img_rect = self.img.get_rect()
+        self.target_range = 50
+        self.time_since_last_interact = 0
 
     def draw(self, display):
         if self.moving_left:
@@ -37,4 +39,11 @@ class Player:
             if check_object_collision(self, objects):
                 self.y -= self.speed
 
+        self.time_since_last_interact += 1
+
         display.blit(self.img, (self.x, self.y))
+
+    def interact(self):
+        if TargetHandler.get_closest_target_range(self) <= self.target_range:
+            TargetHandler.get_closest_target(self).on_player_interact()
+            self.time_since_last_interact = 0

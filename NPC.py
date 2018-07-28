@@ -1,5 +1,6 @@
 import pygame
 import random
+import ScoreHandler
 
 class NPC:
     img = pygame.image.load('art/default.png')
@@ -46,3 +47,11 @@ class Dev(NPC):
 
     def rotate(self):
         self.img = pygame.transform.rotate(self.img, self.angle)
+
+    def on_player_interact(self):
+        ScoreHandler.increase_score(1)
+        if self.state == "spinning":
+            self.state = "working"
+            ScoreHandler.increase_score(49)
+        if self.state == "working":
+            self.time_working = 0
