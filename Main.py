@@ -1,5 +1,5 @@
 import pygame
-import Config, BackgroundHandler, ObjectHandler, KeyboardHandler, NPCHandler
+import Config, BackgroundHandler, ObjectHandler, KeyboardHandler, NPCHandler, UIHandler
 from Player import Player
 
 pygame.init()
@@ -18,6 +18,7 @@ def draw():
     ObjectHandler.draw_objects(gameDisplay)
     NPCHandler.draw_npcs(gameDisplay)
     player.draw(gameDisplay)
+    UIHandler.draw(gameDisplay)
 
 
 def on_tick():
