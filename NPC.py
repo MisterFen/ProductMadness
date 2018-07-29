@@ -20,7 +20,7 @@ class Dev(NPC):
         self.y = y
         self.width = 38
         self.height = 38
-        self.state = "spinning"
+        self.state = "working"
         self.time_working = 0
         self.rotate_speed = 0
         self.angle = 90
