@@ -4,11 +4,11 @@ import math
 
 targets = []
 
+for x in npcs:
+    targets.append(x)
 
-def get_potential_targets():
-    global targets
-    targets = npcs
-    targets.append(interactable_objects)
+for x in interactable_objects:
+    targets.append(x)
 
 
 def get_closest_target_range(player):

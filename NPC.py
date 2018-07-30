@@ -15,9 +15,10 @@ class NPC:
 
 
 class Dev(NPC):
-
-    img = pygame.image.load('art/dev1.png')
     random.seed()
+    img = pygame.image.load('art/dev1.png')
+
+    get_back_to_work_score = 49
 
     def __init__(self, x, y):
         self.x = x
@@ -31,6 +32,7 @@ class Dev(NPC):
         self.rotate_increment = 90
         self.angle = 90
         self.img_rect = self.img.get_rect()
+        self.set_image()
 
     def on_tick(self):
         if self.state == "working":
@@ -52,7 +54,17 @@ class Dev(NPC):
     def on_player_interact(self):
         ScoreHandler.increase_score(1)
         if self.state == "spinning":
-            self.state = "working"
-            ScoreHandler.increase_score(49)
+            self.get_back_to_work()
+            ScoreHandler.increase_score(self.get_back_to_work_score)
         if self.state == "working":
-            self.time_working = 0
+            self.get_back_to_work()
+
+    def get_back_to_work(self):
+        self.state = "working"
+        self.time_working = 0
+
+    def set_image(self):
+        if random.randint(1, 2) == 1:
+            self.img = pygame.image.load('art/dev1.png')
+        else:
+            self.img = pygame.image.load('art/dev2.png')

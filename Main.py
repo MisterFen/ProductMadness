@@ -23,6 +23,7 @@ def draw():
 
 def on_tick():
     NPCHandler.on_tick()
+    ObjectHandler.on_tick()
 
 
 def main():

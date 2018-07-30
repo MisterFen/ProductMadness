@@ -21,3 +21,10 @@ def draw_objects(display):
         x.draw(display)
     for x in interactable_objects:
         x.draw(display)
+
+
+def on_tick():
+    for x in objects:
+        x.on_tick()
+    for x in interactable_objects:
+        x.on_tick()
