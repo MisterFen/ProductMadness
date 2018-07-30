@@ -1,23 +1,35 @@
 from NPCHandler import npcs
+from ObjectHandler import interactable_objects
 import math
+
+targets = []
+
+
+def get_potential_targets():
+    global targets
+    targets = npcs
+    targets.append(interactable_objects)
+
 
 def get_closest_target_range(player):
     closest_range = 100000
-    for x in npcs:
+    for x in targets:
         distance = get_range(x, player)
         if distance < closest_range:
             closest_range = distance
     return closest_range
 
+
 def get_closest_target(player):
     closest_range = 100000
     closest_target = 0
-    for x in npcs:
+    for x in targets:
         distance = get_range(x, player)
         if distance < closest_range:
             closest_range = distance
             closest_target = x
     return closest_target
+
 
 def get_range(target, player):
     x_diff = player.x - target.x

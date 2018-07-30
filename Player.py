@@ -20,6 +20,7 @@ class Player:
         self.img_rect = self.img.get_rect()
         self.target_range = 50
         self.time_since_last_interact = 0
+        self.interact_delay = 50
 
     def draw(self, display):
         if self.moving_left:
@@ -44,6 +45,7 @@ class Player:
         display.blit(self.img, (self.x, self.y))
 
     def interact(self):
-        if TargetHandler.get_closest_target_range(self) <= self.target_range:
-            TargetHandler.get_closest_target(self).on_player_interact()
-            self.time_since_last_interact = 0
+        if self.time_since_last_interact > self.interact_delay:
+            if TargetHandler.get_closest_target_range(self) <= self.target_range:
+                TargetHandler.get_closest_target(self).on_player_interact()
+                self.time_since_last_interact = 0

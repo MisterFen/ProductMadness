@@ -2,6 +2,7 @@ import pygame
 import random
 import ScoreHandler
 
+
 class NPC:
     img = pygame.image.load('art/default.png')
 
