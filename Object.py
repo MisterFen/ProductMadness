@@ -42,6 +42,10 @@ class Computer(Object):
         self.lock_timer = 500
 
     def draw(self, display):
+        if self.locked_state:
+            self.img = pygame.image.load('art/computer_locked.png')
+        else:
+            self.img = pygame.image.load('art/computer.png')
         display.blit(self.img, (self.x, self.y))
 
     def on_tick(self):
