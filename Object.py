@@ -29,7 +29,10 @@ class Table(Object):
 
 class Computer(Object):
     img = pygame.image.load('art/computer.png')
+    buzz_img = pygame.image.load('art/computer_buzz.png')
     answer_buzz_score = 300
+    max_buzz_timer = 1500
+    lock_timer = 500
 
     def __init__(self, x, y):
         self.x = x
@@ -39,7 +42,8 @@ class Computer(Object):
         self.state = "idle"
         self.locked_state = False
         self.idle_time = 0
-        self.lock_timer = 500
+        self.time_to_buzz = self.max_buzz_timer
+        self.set_new_buzz_timer()
 
     def draw(self, display):
         if self.locked_state:
@@ -48,7 +52,13 @@ class Computer(Object):
             self.img = pygame.image.load('art/computer.png')
         display.blit(self.img, (self.x, self.y))
 
+        if self.state == "buzzing":
+            display.blit(self.buzz_img, (self.x, self.y))
+
     def on_tick(self):
+        self.time_to_buzz -= 1
+        if self.time_to_buzz <= 0:
+            self.start_buzzing()
         if self.state == "idle":
             self.idle_time += 1
         if self.idle_time >= self.lock_timer:
@@ -73,6 +83,7 @@ class Computer(Object):
         self.idle_time = 0
 
     def answer_buzz(self):
+        self.set_new_buzz_timer()
         self.state = "idle"
         self.idle_time = 0
         ScoreHandler.increase_score(self.answer_buzz_score)
@@ -80,3 +91,9 @@ class Computer(Object):
     def lock(self):
         self.locked_state = True
         self.state = "locked"
+
+    def set_new_buzz_timer(self):
+        self.time_to_buzz = self.max_buzz_timer
+
+    def start_buzzing(self):
+        self.state = "buzzing"
