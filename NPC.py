@@ -1,6 +1,6 @@
 import pygame
 import random
-import ScoreHandler
+import ScoreHandler, UIHandler
 
 
 class NPC:
@@ -27,7 +27,7 @@ class Dev(NPC):
         self.height = 38
         self.state = "working"
         self.time_working = 0
-        self.time_working_limit = random.randint(10, 1000)
+        self.time_working_limit = random.randint(300, 1000)
         self.time_since_rotated = 0
         self.rotate_increment = 90
         self.angle = 90
@@ -41,7 +41,7 @@ class Dev(NPC):
                 self.state = "spinning"
         if self.state == "spinning":
             self.time_since_rotated += 1
-            if self.time_since_rotated == self.rotate_increment:
+            if self.time_since_rotated >= self.rotate_increment:
                 self.rotate()
                 self.time_since_rotated = 0
 
@@ -55,13 +55,17 @@ class Dev(NPC):
         ScoreHandler.increase_score(1)
         if self.state == "spinning":
             self.get_back_to_work()
-            ScoreHandler.increase_score(self.get_back_to_work_score)
-        if self.state == "working":
-            self.get_back_to_work()
+        elif self.state == "working":
+            self.boop()
+
+    def boop(self):
+        print('Boop')
 
     def get_back_to_work(self):
         self.state = "working"
         self.time_working = 0
+        UIHandler.create_hitmark(self.x - 50, self.y - 15, "Stopped Spinning!")
+        ScoreHandler.increase_score(self.get_back_to_work_score)
 
     def set_image(self):
         if random.randint(1, 2) == 1:
