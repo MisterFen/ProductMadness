@@ -4,3 +4,7 @@
 .idea/ProductMadness.iml
 .idea/misc.xml
 .idea/ProductMadness.iml
+__pycache__/Hitmark.cpython-36.pyc
+__pycache__/NPC.cpython-36.pyc
+__pycache__/Object.cpython-36.pyc
+__pycache__/UIHandler.cpython-36.pyc
