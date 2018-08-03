@@ -121,10 +121,15 @@ class Dev(NPC):
         ScoreHandler.increase_score(self.get_back_to_work_score)
 
     def set_image(self):
-        if random.randint(1, 2) == 1:
+        random_number = random.randint(1, 4)
+        if random_number == 1:
             self.img = pygame.image.load('art/dev1.png')
-        else:
+        elif random_number == 2:
             self.img = pygame.image.load('art/dev2.png')
+        elif random_number == 3:
+            self.img = pygame.image.load('art/dev3.png')
+        else:
+            self.img = pygame.image.load('art/dev4.png')
 
     def choose_random_slacking_state(self):
         random_number = random.randint(0, 100)
