@@ -1,5 +1,5 @@
 import pygame
-import ScoreHandler
+import ScoreHandler, UIHandler
 
 class Object:
     img = pygame.image.load('art/default.png')
@@ -68,6 +68,7 @@ class Computer(Object):
     def on_player_interact(self):
         if self.locked_state:
             self.unlock()
+            UIHandler.create_hitmark(self.x, self.y, "Unlocked!")
         else:
             if self.state == "idle":
                 self.boop()
@@ -86,11 +87,13 @@ class Computer(Object):
         self.set_new_buzz_timer()
         self.state = "idle"
         self.idle_time = 0
+        UIHandler.create_hitmark(self.x, self.y, "Call answered!")
         ScoreHandler.increase_score(self.answer_buzz_score)
 
     def lock(self):
         self.locked_state = True
         self.state = "locked"
+        UIHandler.create_hitmark(self.x, self.y, "Computer locked!")
 
     def set_new_buzz_timer(self):
         self.time_to_buzz = self.max_buzz_timer

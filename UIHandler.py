@@ -31,6 +31,6 @@ def create_hitmark(x, y, msg):
 
 def purge_hitmarks():
     for x in hitmarks:
-        print(x.time_active, x.max_time_active)
         if x.time_active > x.max_time_active:
             hitmarks.remove(x)
+            del x
