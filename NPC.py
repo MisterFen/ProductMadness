@@ -21,8 +21,8 @@ class Dev(NPC):
     get_back_to_work_score = 49
 
     def __init__(self, x, y):
-        self.x = self.start_x = x
-        self.y = self.start_y = y
+        self.x = self.start_x = self.target_x = x
+        self.y = self.start_y = self.target_y = y
         self.width = 38
         self.height = 38
         self.state = "working"
@@ -46,28 +46,49 @@ class Dev(NPC):
                 self.rotate()
                 self.time_since_rotated = 0
         if self.state == "pacing":
-            if self.y < Config.aisle_middle_y:
-                self.y += self.speed
-                if Config.aisle_middle_y - self.y < 1:
-                    self.y = Config.aisle_middle_y
-            elif self.y > Config.aisle_middle_y:
-                self.y -= self.speed
-                if self.y - Config.aisle_middle_y < 1:
-                    self.y = Config.aisle_middle_y
+            if self.y != Config.aisle_middle_y:
+                self.move_toward_y(Config.aisle_middle_y)
+            else:
+                if self.x != self.target_x:
+                    self.move_toward_x(self.target_x)
+                else:
+                    self.set_target_x()
 
         if self.state == "returning":
-            if self.y < self.start_y:
-                self.y += self.speed
-                if self.start_y - self.y < 1:
-                    self.y = self.start_y
-            elif self.y > self.start_y:
-                self.y -= self.speed
-                if self.y - self.start_y < 1:
-                    self.y = self.start_y
+            if self.x != self.start_x:
+                self.move_toward_x(self.start_x)
+            elif self.y != self.start_y:
+                self.move_toward_y(self.start_y)
 
             if (self.y == self.start_y) and (self.x == self.start_x):
                 UIHandler.create_hitmark(self.x, self.y, "Working...")
                 self.state = "working"
+
+    def move_toward_y(self, y):
+        if self.y < y:
+            self.y += self.speed
+            if y - self.y < 1:
+                self.y = y
+        elif self.y > y:
+            self.y -= self.speed
+            if self.y - y < 1:
+                self.y = y
+
+    def move_toward_x(self, x):
+        if self.x < x:
+            self.x += self.speed
+            if x - self.x < 1:
+                self.x = x
+        elif self.x > x:
+            self.x -= self.speed
+            if self.x - x < 1:
+                self.x = x
+
+    def set_target_x(self):
+        if self.x < Config.aisle_middle_x:
+            self.target_x = Config.display_width - 75
+        elif self.x > Config.aisle_middle_x:
+            self.target_x = 75
 
     def draw(self, display):
         display.blit(self.img,(self.x, self.y))

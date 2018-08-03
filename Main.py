@@ -21,24 +21,45 @@ def draw():
     UIHandler.draw(gameDisplay)
 
 
+def display_title():
+    UIHandler.draw_title(gameDisplay)
+    pygame.display.update()
+    clock.tick(Config.FPS)
+
+
 def on_tick():
     NPCHandler.on_tick()
     ObjectHandler.on_tick()
 
 
 def main():
+    game_running = False
     game_exit = False
 
     while not game_exit:
+
+        display_title()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_exit = True
-            KeyboardHandler.on_event(event, player)
-        on_tick()
-        draw()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if UIHandler.check_title_buttons_clicked() == "Play":
+                    game_running = True
+                elif UIHandler.check_title_buttons_clicked() == "Quit":
+                    game_running = False
+                    game_exit = True
 
-        pygame.display.update()
-        clock.tick(Config.FPS)
+        while game_running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_running = False
+                    game_exit = True
+                KeyboardHandler.on_event(event, player)
+            on_tick()
+            draw()
+
+            pygame.display.update()
+            clock.tick(Config.FPS)
 
 
 main()
