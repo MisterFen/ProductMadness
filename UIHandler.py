@@ -10,15 +10,17 @@ button1 = Button(250, 500, 100, 50, "Play")
 button2 = Button(450, 500, 100, 50, "Quit")
 title_buttons = [button1, button2]
 
+hud_background_image = pygame.image.load('art/ui_bar.png')
+
 
 def draw(display):
-    draw_score(display)
     purge_hitmarks()
     draw_hitmarks(display)
+    draw_hud(display)
 
 
 def draw_score(display):
-    font_size = 30
+    font_size = 26
     pygame.font.init()
     my_font = pygame.font.SysFont('Verdana', font_size)
     text_surface = my_font.render('Score: ' + str(ScoreHandler.score), False, (0, 0, 0))
@@ -56,3 +58,8 @@ def draw_title(display):
     display.fill((200, 200, 200))
     for x in title_buttons:
         x.draw(display)
+
+
+def draw_hud(display):
+    display.blit(hud_background_image, (0, 500))
+    draw_score(display)

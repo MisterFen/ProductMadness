@@ -14,7 +14,7 @@ def check_object_collision(player, objects):
         return True
     if player.y < 0:
         return True
-    if player.y + player.height > Config.display_height:
+    if player.y + player.height > Config.display_height - 100:
         return True
 
 

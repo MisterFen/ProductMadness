@@ -1,5 +1,5 @@
 import pygame
-import Config, BackgroundHandler, ObjectHandler, KeyboardHandler, NPCHandler, UIHandler
+import Config, BackgroundHandler, ObjectHandler, KeyboardHandler, NPCHandler, UIHandler, GameLogic
 from Player import Player
 
 pygame.init()
@@ -30,10 +30,10 @@ def display_title():
 def on_tick():
     NPCHandler.on_tick()
     ObjectHandler.on_tick()
+    GameLogic.on_tick()
 
 
 def main():
-    game_running = False
     game_exit = False
 
     while not game_exit:
@@ -44,15 +44,15 @@ def main():
                 game_exit = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if UIHandler.check_title_buttons_clicked() == "Play":
-                    game_running = True
+                    GameLogic.on_start()
                 elif UIHandler.check_title_buttons_clicked() == "Quit":
-                    game_running = False
+                    GameLogic.game_running = False
                     game_exit = True
 
-        while game_running:
+        while GameLogic.game_running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    game_running = False
+                    GameLogic.game_running = False
                     game_exit = True
                 KeyboardHandler.on_event(event, player)
             on_tick()
