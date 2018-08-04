@@ -22,6 +22,16 @@ class Player:
         self.time_since_last_interact = 0
         self.interact_delay = 50
 
+    def on_start(self):
+        self.x = Config.player_start_x
+        self.y = Config.player_start_y
+        self.moving_left = False
+        self.moving_right = False
+        self.moving_up = False
+        self.moving_down = False
+        self.img_rect = self.img.get_rect()
+        self.time_since_last_interact = 0
+
     def draw(self, display):
         if self.moving_left:
             self.x -= self.speed

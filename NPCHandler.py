@@ -57,7 +57,8 @@ def draw_npcs(display):
 
 
 def reset():
-    set_devs()
+    for x in npcs:
+        x.on_start()
 
 
 set_devs()

@@ -35,6 +35,17 @@ class Dev(NPC):
         self.set_image()
         self.speed = 1
 
+    def on_start(self):
+        self.x = self.start_x
+        self.y = self.start_y
+        self.state = "working"
+        self.time_working = 0
+        self.time_working_limit = random.randint(300, 1000)
+        self.time_since_rotated = 0
+        self.img_rect = self.img.get_rect()
+        self.set_image()
+        self.speed = 1
+
     def on_tick(self):
         if self.state == "working":
             self.time_working += 1

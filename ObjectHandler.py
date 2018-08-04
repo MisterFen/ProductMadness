@@ -36,6 +36,7 @@ def on_tick():
 
 
 def reset():
-    set_interactable_objects()
+    for x in interactable_objects:
+        x.on_start()
 
 set_interactable_objects()

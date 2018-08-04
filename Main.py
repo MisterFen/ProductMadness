@@ -45,6 +45,7 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if UIHandler.check_title_buttons_clicked() == "Play":
                     GameLogic.on_start()
+                    player.on_start()
                 elif UIHandler.check_title_buttons_clicked() == "Quit":
                     GameLogic.game_running = False
                     game_exit = True
