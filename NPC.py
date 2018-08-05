@@ -27,7 +27,7 @@ class Dev(NPC):
         self.height = 38
         self.state = "working"
         self.time_working = 0
-        self.time_working_limit = random.randint(300, 1000)
+        self.time_working_limit = random.randint(300, 2000)
         self.time_since_rotated = 0
         self.rotate_increment = 90
         self.angle = 90
