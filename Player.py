@@ -1,4 +1,4 @@
-import Config
+import Config, GameLogic
 import pygame
 from CollisionHandler import check_object_collision
 from ObjectHandler import objects
@@ -20,7 +20,6 @@ class Player:
         self.img_rect = self.img.get_rect()
         self.target_range = 50
         self.time_since_last_interact = 0
-        self.interact_delay = 50
 
     def on_start(self):
         self.x = Config.player_start_x
@@ -50,12 +49,21 @@ class Player:
             if check_object_collision(self, objects):
                 self.y -= self.speed
 
-        self.time_since_last_interact += 1
-
         display.blit(self.img, (self.x, self.y))
 
     def interact(self):
-        if self.time_since_last_interact > self.interact_delay:
+        if GameLogic.time_since_last_interact > GameLogic.max_interact_timer:
             if TargetHandler.get_closest_target_range(self) <= self.target_range:
                 TargetHandler.get_closest_target(self).on_player_interact()
-                self.time_since_last_interact = 0
+                GameLogic.time_since_last_interact = 0
+
+    def use_ability(self, int):
+        if GameLogic.time_since_last_ability > GameLogic.max_ability_timer:
+            if int == 1:
+                GameLogic.use_shout()
+            if int == 2:
+                GameLogic.use_extend_deadline()
+            if int == 3:
+                GameLogic.use_score_up()
+            if int == 4:
+                GameLogic.use_sparkle()
