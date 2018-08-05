@@ -1,6 +1,7 @@
 import NPCHandler
 import ObjectHandler
 import ScoreHandler
+import Abilities
 
 game_running = False
 
@@ -40,6 +41,7 @@ def use_shout():
 
 def use_extend_deadline():
     on_use_ability()
+    Abilities.use_extend_deadline()
 
 
 def use_score_up():
