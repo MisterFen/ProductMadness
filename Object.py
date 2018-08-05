@@ -86,6 +86,7 @@ class Computer(Object):
 
     def boop(self):
         self.idle_time = 0
+        ScoreHandler.increase_score(5)
 
     def unlock(self):
         self.state = "idle"
