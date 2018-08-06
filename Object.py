@@ -35,10 +35,19 @@ class Computer(Object):
     lock_timer = 500
 
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
+        self.x = self.start_x = x
+        self.y = self.start_y = y
         self.width = 28
         self.height = 36
+        self.state = "idle"
+        self.locked_state = False
+        self.idle_time = 0
+        self.time_to_buzz = self.max_buzz_timer
+        self.set_new_buzz_timer()
+
+    def on_start(self):
+        self.x = self.start_x
+        self.y = self.start_y
         self.state = "idle"
         self.locked_state = False
         self.idle_time = 0
@@ -77,6 +86,7 @@ class Computer(Object):
 
     def boop(self):
         self.idle_time = 0
+        ScoreHandler.increase_score(5)
 
     def unlock(self):
         self.state = "idle"

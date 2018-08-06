@@ -27,10 +27,21 @@ class Dev(NPC):
         self.height = 38
         self.state = "working"
         self.time_working = 0
-        self.time_working_limit = random.randint(300, 1000)
+        self.time_working_limit = random.randint(300, 2000)
         self.time_since_rotated = 0
         self.rotate_increment = 90
         self.angle = 90
+        self.img_rect = self.img.get_rect()
+        self.set_image()
+        self.speed = 1
+
+    def on_start(self):
+        self.x = self.start_x
+        self.y = self.start_y
+        self.state = "working"
+        self.time_working = 0
+        self.time_working_limit = random.randint(300, 1000)
+        self.time_since_rotated = 0
         self.img_rect = self.img.get_rect()
         self.set_image()
         self.speed = 1
@@ -121,10 +132,15 @@ class Dev(NPC):
         ScoreHandler.increase_score(self.get_back_to_work_score)
 
     def set_image(self):
-        if random.randint(1, 2) == 1:
+        random_number = random.randint(1, 4)
+        if random_number == 1:
             self.img = pygame.image.load('art/dev1.png')
-        else:
+        elif random_number == 2:
             self.img = pygame.image.load('art/dev2.png')
+        elif random_number == 3:
+            self.img = pygame.image.load('art/dev3.png')
+        else:
+            self.img = pygame.image.load('art/dev4.png')
 
     def choose_random_slacking_state(self):
         random_number = random.randint(0, 100)

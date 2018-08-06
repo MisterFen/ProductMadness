@@ -1,5 +1,5 @@
 import pygame
-
+import GameLogic
 
 def on_event(event, player):
 
@@ -14,6 +14,14 @@ def on_event(event, player):
             player.moving_down = True
         if event.key == pygame.K_e:
             player.interact()
+        if event.key == pygame.K_1:
+            player.use_ability(1)
+        if event.key == pygame.K_2:
+            player.use_ability(2)
+        if event.key == pygame.K_3:
+            player.use_ability(3)
+        if event.key == pygame.K_4:
+            player.use_ability(4)
 
     if event.type == pygame.KEYUP:
         if event.key == pygame.K_LEFT or event.key == pygame.K_a:

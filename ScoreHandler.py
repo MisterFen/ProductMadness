@@ -7,3 +7,8 @@ def increase_score(val):
     global score
     score += val * score_modifier
     print('Increased score: ' + str(score))
+
+
+def reset():
+    global score
+    score = 0
