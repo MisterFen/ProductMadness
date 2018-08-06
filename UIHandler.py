@@ -8,6 +8,11 @@ hitmarks = []
 
 button1 = Button(250, 500, 100, 50, "Play")
 button2 = Button(450, 500, 100, 50, "Quit")
+
+title_image = pygame.image.load('art/title_image.png')
+title_image_x = 200
+title_image_y = 50
+title_images = [title_image]
 title_buttons = [button1, button2]
 
 
@@ -54,5 +59,6 @@ def purge_hitmarks():
 
 def draw_title(display):
     display.fill((200, 200, 200))
+    display.blit(title_image, (title_image_x, title_image_y))
     for x in title_buttons:
         x.draw(display)
