@@ -1,5 +1,8 @@
-import GameLogic
+import GameLogic, ScoreHandler
 import random
+
+score_up_duration = 100
+score_up_multiplier = 3
 
 
 def use_extend_deadline():
@@ -9,4 +12,7 @@ def use_extend_deadline():
     amount_to_increase = int(remaining_time_percentage * max_deadline_increase)
     amount_to_increase += random.randint(3, 30)
     GameLogic.current_timer += amount_to_increase
-    print('Increased by: '+str(amount_to_increase))
+
+
+def use_score_up():
+    ScoreHandler.set_score_modifier(score_up_multiplier)

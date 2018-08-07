@@ -26,8 +26,6 @@ score_up_ability_image = pygame.image.load('art/score_up_ability.png')
 sparkle_ability_image = pygame.image.load('art/sparkle_ability.png')
 
 
-
-
 def draw(display):
     purge_hitmarks()
     draw_hitmarks(display)
