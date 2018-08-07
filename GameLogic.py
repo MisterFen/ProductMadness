@@ -43,6 +43,7 @@ def on_use_ability():
 
 def use_shout():
     on_use_ability()
+    Abilities.use_shout()
 
 
 def use_extend_deadline():

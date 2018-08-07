@@ -61,4 +61,9 @@ def reset():
         x.on_start()
 
 
+def on_shout():
+    for x in npcs:
+        x.on_shout()
+
+
 set_devs()

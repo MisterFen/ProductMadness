@@ -1,4 +1,4 @@
-import GameLogic, ScoreHandler
+import GameLogic, ScoreHandler, NPCHandler
 import random
 
 score_up_duration = 100
@@ -16,3 +16,7 @@ def use_extend_deadline():
 
 def use_score_up():
     ScoreHandler.set_score_modifier(score_up_multiplier)
+
+
+def use_shout():
+    NPCHandler.on_shout()

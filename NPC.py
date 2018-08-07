@@ -19,6 +19,7 @@ class Dev(NPC):
     img = pygame.image.load('art/dev1.png')
 
     get_back_to_work_score = 49
+    on_shout_score = 2
 
     def __init__(self, x, y):
         self.x = self.start_x = self.target_x = x
@@ -73,6 +74,7 @@ class Dev(NPC):
 
             if (self.y == self.start_y) and (self.x == self.start_x):
                 UIHandler.create_hitmark(self.x, self.y, "Working...")
+                self.time_working = 0
                 self.state = "working"
 
     def move_toward_y(self, y):
@@ -110,26 +112,34 @@ class Dev(NPC):
     def on_player_interact(self):
         ScoreHandler.increase_score(1)
         if self.state == "spinning":
-            self.get_back_to_work()
+            self.get_back_to_work(self.get_back_to_work_score)
         elif self.state == "working":
             self.boop()
         elif self.state == "pacing":
-            self.walk_back_to_desk()
+            self.walk_back_to_desk(self.get_back_to_work_score)
+
+    def on_shout(self):
+        if self.state == "spinning":
+            self.get_back_to_work(self.on_shout_score)
+        elif self.state == "working":
+            self.boop()
+        elif self.state == "pacing":
+            self.walk_back_to_desk(self.on_shout_score)
 
     def boop(self):
-        print('Boop')
+        self.time_working = 0
 
-    def walk_back_to_desk(self):
+    def walk_back_to_desk(self, score):
         self.state = "returning"
         self.time_working = 0
         UIHandler.create_hitmark(self.x - 50, self.y - 15, "Returning to desk")
-        ScoreHandler.increase_score(self.get_back_to_work_score)
+        ScoreHandler.increase_score(score)
 
-    def get_back_to_work(self):
+    def get_back_to_work(self, score):
         self.state = "working"
         self.time_working = 0
         UIHandler.create_hitmark(self.x - 50, self.y - 15, "Stopped Spinning!")
-        ScoreHandler.increase_score(self.get_back_to_work_score)
+        ScoreHandler.increase_score(score)
 
     def set_image(self):
         random_number = random.randint(1, 4)
