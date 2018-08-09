@@ -24,7 +24,6 @@ def on_tick():
         if time_since_last_ability >= Abilities.score_up_duration:
             score_up_active = False
             ScoreHandler.set_score_modifier(ScoreHandler.start_score_modifier)
-            print("Score up ended")
 
 
 def on_start():
