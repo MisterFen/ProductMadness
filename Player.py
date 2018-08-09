@@ -1,8 +1,9 @@
 import Config, GameLogic
 import pygame
 from CollisionHandler import check_object_collision
-from ObjectHandler import objects
+from ObjectHandler import tables
 import TargetHandler
+
 
 class Player:
     img = pygame.image.load('art/player.png')
@@ -34,19 +35,19 @@ class Player:
     def draw(self, display):
         if self.moving_left:
             self.x -= self.speed
-            if check_object_collision(self, objects):
+            if check_object_collision(self, tables):
                 self.x += self.speed
         if self.moving_right:
             self.x += self.speed
-            if check_object_collision(self, objects):
+            if check_object_collision(self, tables):
                 self.x -= self.speed
         if self.moving_up:
             self.y -= self.speed
-            if check_object_collision(self, objects):
+            if check_object_collision(self, tables):
                 self.y += self.speed
         if self.moving_down:
             self.y += self.speed
-            if check_object_collision(self, objects):
+            if check_object_collision(self, tables):
                 self.y -= self.speed
 
         display.blit(self.img, (self.x, self.y))

@@ -22,10 +22,15 @@ def draw():
 
 
 def display_title():
-    UIHandler.draw_title(gameDisplay)
+    UIHandler.draw_title_screen(gameDisplay)
     pygame.display.update()
     clock.tick(Config.FPS)
 
+
+def display_high_score_screen():
+    UIHandler.draw_high_score_screen(gameDisplay)
+    pygame.display.update()
+    clock.tick(Config.FPS)
 
 def on_tick():
     NPCHandler.on_tick()
@@ -61,6 +66,16 @@ def main():
 
             pygame.display.update()
             clock.tick(Config.FPS)
+
+        while GameLogic.state == "high score":
+            display_high_score_screen()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    GameLogic.state = "quit"
+                    game_exit = True
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if UIHandler.check_high_score_buttons_clicked() == "Finish":
+                        GameLogic.state = "title"
 
 
 main()

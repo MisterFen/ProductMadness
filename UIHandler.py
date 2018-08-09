@@ -9,11 +9,15 @@ hitmarks = []
 button1 = Button(250, 500, 100, 50, "Play")
 button2 = Button(450, 500, 100, 50, "Quit")
 
+high_score_button1 = Button(300, 500, 100, 50, "Finish")
+
 title_image = pygame.image.load('art/title_image.png')
 title_image_x = 200
 title_image_y = 50
 title_images = [title_image]
 title_buttons = [button1, button2]
+
+high_score_buttons = [high_score_button1]
 
 hud_background_image = pygame.image.load('art/ui_bar.png')
 timer_box_image = pygame.image.load('art/timer_box.png')
@@ -60,6 +64,16 @@ def check_title_buttons_clicked():
                         return i.text
 
 
+def check_high_score_buttons_clicked():
+    x, y = pygame.mouse.get_pos()
+    for i in high_score_buttons:
+        if x < i.rect.x + i.rect.width:
+            if x > i.rect.x:
+                if y < i.rect.y + i.rect.height:
+                    if y > i.rect.y:
+                        return i.text
+
+
 def purge_hitmarks():
     for x in hitmarks:
         if x.time_active > x.max_time_active:
@@ -67,12 +81,26 @@ def purge_hitmarks():
             del x
 
 
-def draw_title(display):
+def draw_title_screen(display):
     display.fill((200, 200, 200))
     display.blit(title_image, (title_image_x, title_image_y))
     for x in title_buttons:
         x.draw(display)
 
+
+def draw_high_score_screen(display):
+    display.fill((200, 200, 200))
+    draw_message(display, 250, 300, 36, "Your score was: "+str(ScoreHandler.score))
+    for x in high_score_buttons:
+        x.draw(display)
+
+
+def draw_message(display, x, y, size, text):
+    font_size = size
+    pygame.font.init()
+    my_font = pygame.font.SysFont('Verdana', font_size)
+    text_surface = my_font.render(text, False, (0, 0, 0))
+    display.blit(text_surface, (x, y))
 
 def draw_hud(display):
     display.blit(hud_background_image, (0, 500))

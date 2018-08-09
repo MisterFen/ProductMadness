@@ -1,6 +1,6 @@
 import pygame
 import random
-import ScoreHandler, UIHandler, Config
+import ScoreHandler, UIHandler, Config, GameLogic
 
 
 class NPC:
@@ -21,7 +21,7 @@ class Dev(NPC):
     get_back_to_work_score = 49
     on_shout_score = 2
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, direction):
         self.x = self.start_x = self.target_x = x
         self.y = self.start_y = self.target_y = y
         self.width = 38
@@ -35,6 +35,8 @@ class Dev(NPC):
         self.img_rect = self.img.get_rect()
         self.set_image()
         self.speed = 1
+        self.times_rotated = 0
+        self.starting_direction = direction
 
     def on_start(self):
         self.x = self.start_x
@@ -46,6 +48,7 @@ class Dev(NPC):
         self.img_rect = self.img.get_rect()
         self.set_image()
         self.speed = 1
+        self.face_starting_direction()
 
     def on_tick(self):
         if self.state == "working":
@@ -76,6 +79,7 @@ class Dev(NPC):
                 UIHandler.create_hitmark(self.x, self.y, "Working...")
                 self.time_working = 0
                 self.state = "working"
+                self.face_starting_direction()
 
     def move_toward_y(self, y):
         if self.y < y:
@@ -108,6 +112,26 @@ class Dev(NPC):
 
     def rotate(self):
         self.img = pygame.transform.rotate(self.img, self.angle)
+        self.times_rotated += 1
+        if self.times_rotated == 4:
+            self.times_rotated = 0
+
+    def face_starting_direction(self):
+        if self.starting_direction == "left":
+            self.face_left()
+        elif self.starting_direction == "right":
+            self.face_right()
+        else:
+            self.face_left()
+            print("NO STARTING DIRECTION!>!>!??")
+
+    def face_left(self):
+        while self.times_rotated != 1:
+            self.rotate()
+
+    def face_right(self):
+        while self.times_rotated != 3:
+            self.rotate()
 
     def on_player_interact(self):
         ScoreHandler.increase_score(1)
@@ -140,6 +164,7 @@ class Dev(NPC):
         self.time_working = 0
         UIHandler.create_hitmark(self.x - 50, self.y - 15, "Stopped Spinning!")
         ScoreHandler.increase_score(score)
+        self.face_starting_direction()
 
     def set_image(self):
         random_number = random.randint(1, 4)

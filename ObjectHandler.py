@@ -11,7 +11,7 @@ table5 = Table(table2.x, table2.y + table1.height + table_spacing_y)
 table6 = Table(table3.x, table3.y + table1.height + table_spacing_y)
 
 interactable_objects = []
-objects = [table1, table2, table3, table4, table5, table6]
+tables = [table1, table2, table3, table4, table5, table6]
 
 
 def set_interactable_objects():
@@ -20,16 +20,15 @@ def set_interactable_objects():
     computer1 = Computer(table2.x + table2.width / 2 + 20, table2.y + table2.height / 2 + 20)
     interactable_objects = [computer1]
 
-
 def draw_objects(display):
-    for x in objects:
+    for x in tables:
         x.draw(display)
     for x in interactable_objects:
         x.draw(display)
 
 
 def on_tick():
-    for x in objects:
+    for x in tables:
         x.on_tick()
     for x in interactable_objects:
         x.on_tick()
