@@ -32,6 +32,11 @@ def display_high_score_screen():
     pygame.display.update()
     clock.tick(Config.FPS)
 
+def display_how_to_play_screen():
+    UIHandler.draw_how_to_play_screen(gameDisplay)
+    pygame.display.update()
+    clock.tick(Config.FPS)
+
 def on_tick():
     NPCHandler.on_tick()
     ObjectHandler.on_tick()
@@ -51,6 +56,8 @@ def main():
                 if UIHandler.check_title_buttons_clicked() == "Play":
                     GameLogic.on_start()
                     player.on_start()
+                elif UIHandler.check_title_buttons_clicked() == "How to play":
+                    GameLogic.state = "how to play"
                 elif UIHandler.check_title_buttons_clicked() == "Quit":
                     GameLogic.game_running = False
                     game_exit = True
@@ -75,6 +82,16 @@ def main():
                     game_exit = True
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if UIHandler.check_high_score_buttons_clicked() == "Finish":
+                        GameLogic.state = "title"
+
+        while GameLogic.state == "how to play":
+            display_how_to_play_screen()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    GameLogic.state = "quit"
+                    game_exit = True
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if UIHandler.check_how_to_play_buttons_clicked() == "Back":
                         GameLogic.state = "title"
 
 

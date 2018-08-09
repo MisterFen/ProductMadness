@@ -8,18 +8,23 @@ from AbilityUnreadyOverlay import AbilityUnreadyOverlay
 hitmarks = []
 overlays = []
 
-button1 = Button(250, 500, 100, 50, "Play")
-button2 = Button(450, 500, 100, 50, "Quit")
+button1 = Button(150, 500, 100, 50, "Play")
+button2 = Button(350, 500, 100, 50, "How to play")
+button3 = Button(550, 500, 100, 50, "Quit")
 
 high_score_button1 = Button(300, 500, 100, 50, "Finish")
+
+how_to_play_button1 = Button(300, 535, 100, 50, "Back")
 
 title_image = pygame.image.load('art/title_image.png')
 title_image_x = 200
 title_image_y = 50
 title_images = [title_image]
-title_buttons = [button1, button2]
+title_buttons = [button1, button2, button3]
 
 high_score_buttons = [high_score_button1]
+
+how_to_play_buttons = [how_to_play_button1]
 
 hud_background_image = pygame.image.load('art/ui_bar.png')
 timer_box_image = pygame.image.load('art/timer_box.png')
@@ -36,7 +41,6 @@ ability_label_1_img = pygame.image.load('art/ability_number_1.png')
 ability_label_2_img = pygame.image.load('art/ability_number_2.png')
 ability_label_3_img = pygame.image.load('art/ability_number_3.png')
 ability_label_4_img = pygame.image.load('art/ability_number_4.png')
-
 
 
 def draw(display):
@@ -90,6 +94,16 @@ def check_high_score_buttons_clicked():
                         return i.text
 
 
+def check_how_to_play_buttons_clicked():
+    x, y = pygame.mouse.get_pos()
+    for i in how_to_play_buttons:
+        if x < i.rect.x + i.rect.width:
+            if x > i.rect.x:
+                if y < i.rect.y + i.rect.height:
+                    if y > i.rect.y:
+                        return i.text
+
+
 def purge_hitmarks():
     for x in hitmarks:
         if x.time_active > x.max_time_active:
@@ -118,12 +132,33 @@ def draw_high_score_screen(display):
         x.draw(display)
 
 
+def draw_how_to_play_screen(display):
+    display.fill((200, 200, 200))
+    draw_message(display, 285, 20, 36, "How to play ")
+    for x in how_to_play_buttons:
+        x.draw(display)
+    draw_message(display, 50, 80, 16, "Move around using the WASD or Arrow Keys")
+    draw_message(display, 50, 105, 16, "Interact with objects and people to get the project out before the deadline runs out")
+    draw_message(display, 50, 130, 16, "Use the following abilities to increase your productivity: ")
+    display.blit(interact_ability_image, (50, 170))
+    draw_message(display, 115, 180, 16, "(E) Interact: Interact with nearby objects or people")
+    display.blit(shout_ability_image, (50, 250))
+    draw_message(display, 115, 260, 16, "(1) Shout: Make everyone back to work instantly")
+    display.blit(extend_deadline_ability_image, (50, 330))
+    draw_message(display, 115, 340, 16, "(2) Extend Deadline: Increase the deadline timer slightly")
+    display.blit(score_up_ability_image, (50, 410))
+    draw_message(display, 115, 420, 16, "(3) Score Up: Multiply the amount of score gained for a short period")
+    display.blit(sparkle_ability_image, (50, 490))
+    draw_message(display, 115, 500, 16, "(4) Sparkle: SPAAAAAAAAAAAAAAAARRRRRRRRKLLEEEEEEEEEEE!!!!!!!!")
+
+
 def draw_message(display, x, y, size, text):
     font_size = size
     pygame.font.init()
     my_font = pygame.font.SysFont('Verdana', font_size)
     text_surface = my_font.render(text, False, (0, 0, 0))
     display.blit(text_surface, (x, y))
+
 
 def draw_hud(display):
     display.blit(hud_background_image, (0, 500))
