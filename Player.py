@@ -2,7 +2,7 @@ import Config, GameLogic
 import pygame
 from CollisionHandler import check_object_collision
 from ObjectHandler import tables
-import TargetHandler
+import TargetHandler, UIHandler
 
 
 class Player:
@@ -59,12 +59,11 @@ class Player:
                 GameLogic.time_since_last_interact = 0
 
     def use_ability(self, int):
-        if GameLogic.time_since_last_ability > GameLogic.max_ability_timer:
-            if int == 1:
-                GameLogic.use_shout()
-            if int == 2:
-                GameLogic.use_extend_deadline()
-            if int == 3:
-                GameLogic.use_score_up()
-            if int == 4:
-                GameLogic.use_sparkle()
+        if int == 1:
+            GameLogic.use_shout()
+        if int == 2:
+            GameLogic.use_extend_deadline()
+        if int == 3:
+            GameLogic.use_score_up()
+        if int == 4:
+            GameLogic.use_sparkle()

@@ -1,5 +1,5 @@
 import pygame
-import GameLogic
+import GameLogic, UIHandler
 
 def on_event(event, player):
 
@@ -15,13 +15,25 @@ def on_event(event, player):
         if event.key == pygame.K_e:
             player.interact()
         if event.key == pygame.K_1:
-            player.use_ability(1)
+            if GameLogic.time_since_last_ability > GameLogic.max_ability_timer:
+                player.use_ability(1)
+            else:
+                UIHandler.on_unready_ability_trigger(1)
         if event.key == pygame.K_2:
-            player.use_ability(2)
+            if GameLogic.time_since_last_ability > GameLogic.max_ability_timer:
+                player.use_ability(2)
+            else:
+                UIHandler.on_unready_ability_trigger(2)
         if event.key == pygame.K_3:
-            player.use_ability(3)
+            if GameLogic.time_since_last_ability > GameLogic.max_ability_timer:
+                player.use_ability(3)
+            else:
+                UIHandler.on_unready_ability_trigger(3)
         if event.key == pygame.K_4:
-            player.use_ability(4)
+            if GameLogic.time_since_last_ability > GameLogic.max_ability_timer:
+                player.use_ability(4)
+            else:
+                UIHandler.on_unready_ability_trigger(4)
 
     if event.type == pygame.KEYUP:
         if event.key == pygame.K_LEFT or event.key == pygame.K_a:

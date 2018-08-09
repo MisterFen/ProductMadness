@@ -2,9 +2,11 @@ import pygame
 import Config, ScoreHandler, GameLogic
 from Hitmark import Hitmark
 from Button import Button
+from AbilityUnreadyOverlay import AbilityUnreadyOverlay
 
 
 hitmarks = []
+overlays = []
 
 button1 = Button(250, 500, 100, 50, "Play")
 button2 = Button(450, 500, 100, 50, "Quit")
@@ -41,6 +43,7 @@ def draw(display):
     purge_hitmarks()
     draw_hitmarks(display)
     draw_hud(display)
+    purge_overlays()
 
 
 def draw_score(display):
@@ -54,6 +57,12 @@ def draw_score(display):
 def draw_hitmarks(display):
     for x in hitmarks:
         x.draw(display)
+
+
+def draw_overlays(display):
+    for x in overlays:
+        display.blit(x.get_surface(), (x.x, x.y))
+        x.on_tick()
 
 
 def create_hitmark(x, y, msg):
@@ -88,6 +97,13 @@ def purge_hitmarks():
             del x
 
 
+def purge_overlays():
+    for x in overlays:
+        if x.time_active > x.max_time_active:
+            overlays.remove(x)
+            del x
+
+
 def draw_title_screen(display):
     display.fill((200, 200, 200))
     display.blit(title_image, (title_image_x, title_image_y))
@@ -114,6 +130,7 @@ def draw_hud(display):
     draw_game_timer(display)
     draw_score(display)
     draw_abilities(display)
+    draw_overlays(display)
 
 
 def draw_abilities(display):
@@ -180,7 +197,6 @@ def draw_score_up(display):
     display.blit(ability_label_3_img, pos)
 
 
-
 def draw_sparkle(display):
     pos = (540, 542)
     display.blit(sparkle_ability_image, pos)
@@ -195,7 +211,6 @@ def draw_sparkle(display):
     display.blit(ability_label_4_img, pos)
 
 
-
 def draw_game_timer(display):
     #Text
     font_size = 22
@@ -208,3 +223,17 @@ def draw_game_timer(display):
     #Inner box
     inner_box_rect = pygame.__rect_constructor(126, 511, (648*(GameLogic.current_timer/GameLogic.start_timer)), 28)
     pygame.draw.rect(display, (175, 32, 24), inner_box_rect, 0)
+
+
+def on_unready_ability_trigger(num):
+    pos = (0, 0)
+    if num == 1:
+        pos = (360, 542)
+    elif num == 2:
+        pos = (420, 542)
+    elif num == 3:
+        pos = (480, 542)
+    elif num == 4:
+        pos = (540, 542)
+    overlay = AbilityUnreadyOverlay(pos, 1)
+    overlays.append(overlay)
