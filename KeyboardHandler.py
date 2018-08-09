@@ -1,6 +1,7 @@
 import pygame
 import GameLogic, UIHandler
 
+
 def on_event(event, player):
 
     if event.type == pygame.KEYDOWN:

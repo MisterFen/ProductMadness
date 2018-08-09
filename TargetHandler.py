@@ -20,6 +20,20 @@ def get_closest_target_range(player):
     return closest_range
 
 
+def get_closest_target_in_range(player):
+    closest_range = 100000
+    closest_target = 0
+    for x in targets:
+        distance = get_range(x, player)
+        if distance < closest_range:
+            closest_range = distance
+            closest_target = x
+    if closest_range < player.target_range:
+        return closest_target
+    else:
+        return 0
+
+
 def get_closest_target(player):
     closest_range = 100000
     closest_target = 0
