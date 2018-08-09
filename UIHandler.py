@@ -29,6 +29,13 @@ extend_deadline_ability_image = pygame.image.load('art/deadline_ability.png')
 score_up_ability_image = pygame.image.load('art/score_up_ability.png')
 sparkle_ability_image = pygame.image.load('art/sparkle_ability.png')
 
+ability_label_e_img = pygame.image.load('art/ability_letter_e.png')
+ability_label_1_img = pygame.image.load('art/ability_number_1.png')
+ability_label_2_img = pygame.image.load('art/ability_number_2.png')
+ability_label_3_img = pygame.image.load('art/ability_number_3.png')
+ability_label_4_img = pygame.image.load('art/ability_number_4.png')
+
+
 
 def draw(display):
     purge_hitmarks()
@@ -128,6 +135,7 @@ def draw_default_interaction(display):
     s.set_alpha(230)
     s.fill((128, 128, 128))
     display.blit(s, pos)
+    display.blit(ability_label_e_img, pos)
 
 
 def draw_shout(display):
@@ -141,6 +149,7 @@ def draw_shout(display):
     s.set_alpha(230)
     s.fill((128, 128, 128))
     display.blit(s, pos)
+    display.blit(ability_label_1_img, pos)
 
 
 def draw_extend_deadline(display):
@@ -154,6 +163,7 @@ def draw_extend_deadline(display):
     s.set_alpha(230)
     s.fill((128, 128, 128))
     display.blit(s, pos)
+    display.blit(ability_label_2_img, pos)
 
 
 def draw_score_up(display):
@@ -167,6 +177,8 @@ def draw_score_up(display):
     s.set_alpha(230)
     s.fill((128, 128, 128))
     display.blit(s, pos)
+    display.blit(ability_label_3_img, pos)
+
 
 
 def draw_sparkle(display):
@@ -180,6 +192,8 @@ def draw_sparkle(display):
     s.set_alpha(230)
     s.fill((128, 128, 128))
     display.blit(s, pos)
+    display.blit(ability_label_4_img, pos)
+
 
 
 def draw_game_timer(display):
