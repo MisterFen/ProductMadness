@@ -2,7 +2,7 @@ import Config, GameLogic
 import pygame
 from CollisionHandler import check_object_collision
 from ObjectHandler import tables
-import TargetHandler, UIHandler
+import TargetHandler
 
 
 class Player:

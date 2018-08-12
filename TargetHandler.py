@@ -1,10 +1,10 @@
-from NPCHandler import npcs
+from NPCHandler import devs
 from ObjectHandler import interactable_objects
 import math, UIHandler
 
 targets = []
 
-for x in npcs:
+for x in devs:
     targets.append(x)
 
 for x in interactable_objects:

@@ -1,4 +1,5 @@
 from NPC import Dev
+import random
 
 row_spacing = 265
 column_spacing = 355
@@ -8,11 +9,11 @@ second_row_x = 185
 
 first_column_y = 10
 second_column_y = 90
-npcs = []
+devs = []
 
 def set_devs():
-    global npcs
-    npcs = []
+    global devs
+    devs = []
     dev1 = Dev(first_row_x, first_column_y, "right")
     dev2 = Dev(first_row_x, second_column_y, "right")
     dev3 = Dev(second_row_x, first_column_y, "left")
@@ -43,27 +44,32 @@ def set_devs():
     dev23 = Dev(second_row_x + row_spacing * 2, first_column_y + column_spacing, "left")
     dev24 = Dev(second_row_x + row_spacing * 2, second_column_y + column_spacing, "left")
 
-    npcs = (dev1, dev2, dev3, dev4, dev5, dev6, dev7, dev9, dev10, dev11, dev12, dev13, dev14, dev15, dev16, dev17, dev18, dev19, dev20, dev21, dev22, dev23, dev24)
+    devs = (dev1, dev2, dev3, dev4, dev5, dev6, dev7, dev9, dev10, dev11, dev12, dev13, dev14, dev15, dev16, dev17, dev18, dev19, dev20, dev21, dev22, dev23, dev24)
 
 
 def on_tick():
-    for x in npcs:
+    for x in devs:
         x.on_tick()
 
 
 def draw_npcs(display):
-    for x in npcs:
+    for x in devs:
         x.draw(display)
 
 
 def reset():
-    for x in npcs:
+    for x in devs:
         x.on_start()
 
 
 def on_shout():
-    for x in npcs:
+    for x in devs:
         x.on_shout()
+
+
+def get_random_dev():
+    random_number = random.randint(0, len(devs))
+    return devs[random_number]
 
 
 set_devs()

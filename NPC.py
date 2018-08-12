@@ -1,6 +1,6 @@
 import pygame
 import random
-import ScoreHandler, UIHandler, Config, GameLogic
+import ScoreHandler, UIHandler, Config, GameLogic, SparkleHandler
 
 
 class NPC:
@@ -109,6 +109,8 @@ class Dev(NPC):
 
     def draw(self, display):
         display.blit(self.img,(self.x, self.y))
+        if self.state == "sparkling":
+            SparkleHandler.draw_passive_sparkle(display, self.get_pos())
 
     def rotate(self):
         self.img = pygame.transform.rotate(self.img, self.angle)
@@ -149,6 +151,12 @@ class Dev(NPC):
             self.boop()
         elif self.state == "pacing":
             self.walk_back_to_desk(self.on_shout_score)
+
+    def on_sparkle(self):
+        SparkleHandler.sparkle_target_pos = self.get_pos()
+
+    def on_passive_sparkle(self):
+        self.state = "sparkling"
 
     def boop(self):
         self.time_working = 0

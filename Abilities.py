@@ -1,4 +1,4 @@
-import GameLogic, ScoreHandler, NPCHandler
+import GameLogic, ScoreHandler, NPCHandler, SparkleHandler
 import random
 
 score_up_duration = 100
@@ -20,3 +20,12 @@ def use_score_up():
 
 def use_shout():
     NPCHandler.on_shout()
+
+
+def use_sparkle():
+    SparkleHandler.on_use()
+
+
+def draw(display):
+    if GameLogic.sparkle_active:
+        SparkleHandler.draw(display)

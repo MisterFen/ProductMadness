@@ -2,6 +2,7 @@ import NPCHandler
 import ObjectHandler
 import ScoreHandler
 import Abilities
+import SparkleHandler
 
 state = "title"
 game_running = False
@@ -12,10 +13,11 @@ time_since_last_interact = max_interact_timer = 50
 time_since_last_ability = 0
 max_ability_timer = 500
 score_up_active = False
+sparkle_active = False
 
 
 def on_tick():
-    global current_timer, state, game_running, time_since_last_interact, time_since_last_ability, score_up_active
+    global current_timer, state, game_running, time_since_last_interact, time_since_last_ability, score_up_active, sparkle_active
     current_timer -= 1
     if current_timer <= 0:
         state = "high score"
@@ -26,6 +28,12 @@ def on_tick():
         if time_since_last_ability >= Abilities.score_up_duration:
             score_up_active = False
             ScoreHandler.set_score_modifier(ScoreHandler.start_score_modifier)
+    if sparkle_active:
+        if SparkleHandler.timer > 0:
+            sparkle_active = True
+            SparkleHandler.timer -= 1
+        else:
+            sparkle_active = False
 
 
 def on_start():
@@ -61,3 +69,6 @@ def use_score_up():
 
 def use_sparkle():
     on_use_ability()
+    Abilities.use_sparkle()
+    global sparkle_active
+    sparkle_active = True

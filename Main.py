@@ -1,5 +1,5 @@
 import pygame
-import Config, BackgroundHandler, ObjectHandler, KeyboardHandler, NPCHandler, UIHandler, GameLogic
+import Config, BackgroundHandler, ObjectHandler, KeyboardHandler, NPCHandler, UIHandler, GameLogic, Abilities
 from Player import Player
 
 pygame.init()
@@ -18,6 +18,7 @@ def draw():
     ObjectHandler.draw_objects(gameDisplay)
     NPCHandler.draw_npcs(gameDisplay)
     player.draw(gameDisplay)
+    Abilities.draw(gameDisplay)
     UIHandler.draw(gameDisplay)
 
 
@@ -32,10 +33,12 @@ def display_high_score_screen():
     pygame.display.update()
     clock.tick(Config.FPS)
 
+
 def display_how_to_play_screen():
     UIHandler.draw_how_to_play_screen(gameDisplay)
     pygame.display.update()
     clock.tick(Config.FPS)
+
 
 def on_tick():
     NPCHandler.on_tick()
