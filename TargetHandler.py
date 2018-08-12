@@ -1,6 +1,6 @@
 from NPCHandler import npcs
 from ObjectHandler import interactable_objects
-import math
+import math, UIHandler
 
 targets = []
 
@@ -57,3 +57,11 @@ def get_range(target, player):
 
     range = math.sqrt((x_diff * x_diff) + (y_diff * y_diff))
     return range
+
+
+def draw_interaction_icon_for(player):
+    target = get_closest_target_in_range(player)
+    if target != 0:
+        UIHandler.draw_interaction_icon_for(target.get_pos())
+    else:
+        UIHandler.purge_interaction_icons()

@@ -12,6 +12,7 @@ interaction_icons = []
 interaction_icon_displaying = False
 
 selected_target = 0
+active_target = 0
 
 button1 = Button(150, 500, 100, 50, "Play")
 button2 = Button(350, 500, 100, 50, "How to play")
@@ -76,10 +77,9 @@ def draw_overlays(display):
 
 
 def draw_interaction_icons(display):
-    if interaction_icon_displaying:
-        for x in interaction_icons:
-            display.blit(x.get_image(), x.pos)
-            x.on_tick()
+    for x in interaction_icons:
+        display.blit(x.get_image(), x.pos)
+        x.on_tick()
 
 
 def create_hitmark(x, y, msg):
@@ -132,9 +132,10 @@ def purge_overlays():
 
 
 def purge_interaction_icons():
-    for x in interaction_icons:
-        interaction_icons.remove(x)
-        del x
+    if len(interaction_icons) > 0:
+        for x in interaction_icons:
+            interaction_icons.remove(x)
+            del x
 
 
 def draw_title_screen(display):
@@ -294,14 +295,13 @@ def on_unready_ability_trigger(num):
 
 
 def draw_interaction_icon_for(target):
-    global interaction_icon_displaying
-    interaction_icon = InteractionIcon((0,0))
-    if target != 0:
-        if interaction_icon_displaying == False:
-            interaction_icon = InteractionIcon(target.get_pos())
-            interaction_icon_displaying = True
-            interaction_icons.append(interaction_icon)
-
-    elif target == 0:
-        purge_interaction_icons()
-        interaction_icon_displaying = False
+    global active_target
+    if active_target != target:
+        active_target = target
+        interaction_icon = InteractionIcon(target)
+        interaction_icons.append(interaction_icon)
+    if len(interaction_icons) == 0:
+        interaction_icon = InteractionIcon(target)
+        interaction_icons.append(interaction_icon)
+    if len(interaction_icons) > 1:
+        interaction_icons.pop(0)

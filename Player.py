@@ -35,30 +35,23 @@ class Player:
     def draw(self, display):
         if self.moving_left:
             self.x -= self.speed
-            self.on_move()
             if check_object_collision(self, tables):
                 self.x += self.speed
         if self.moving_right:
             self.x += self.speed
-            self.on_move()
             if check_object_collision(self, tables):
                 self.x -= self.speed
         if self.moving_up:
             self.y -= self.speed
-            self.on_move()
             if check_object_collision(self, tables):
                 self.y += self.speed
         if self.moving_down:
             self.y += self.speed
-            self.on_move()
             if check_object_collision(self, tables):
                 self.y -= self.speed
 
         display.blit(self.img, (self.x, self.y))
-
-    def on_move(self):
-        target = TargetHandler.get_closest_target_in_range(self)
-        UIHandler.draw_interaction_icon_for(target)
+        TargetHandler.draw_interaction_icon_for(self)
 
     def interact(self):
         if GameLogic.time_since_last_interact > GameLogic.max_interact_timer:
