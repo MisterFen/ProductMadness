@@ -3,10 +3,15 @@ import Config, ScoreHandler, GameLogic
 from Hitmark import Hitmark
 from Button import Button
 from AbilityUnreadyOverlay import AbilityUnreadyOverlay
-
+from InteractionIcon import InteractionIcon
 
 hitmarks = []
 overlays = []
+interaction_icons = []
+
+interaction_icon_displaying = False
+
+selected_target = 0
 
 button1 = Button(150, 500, 100, 50, "Play")
 button2 = Button(350, 500, 100, 50, "How to play")
@@ -46,6 +51,7 @@ ability_label_4_img = pygame.image.load('art/ability_number_4.png')
 def draw(display):
     purge_hitmarks()
     draw_hitmarks(display)
+    draw_interaction_icons(display)
     draw_hud(display)
     purge_overlays()
 
@@ -67,6 +73,13 @@ def draw_overlays(display):
     for x in overlays:
         display.blit(x.get_surface(), (x.x, x.y))
         x.on_tick()
+
+
+def draw_interaction_icons(display):
+    if interaction_icon_displaying:
+        for x in interaction_icons:
+            display.blit(x.get_image(), x.pos)
+            x.on_tick()
 
 
 def create_hitmark(x, y, msg):
@@ -116,6 +129,12 @@ def purge_overlays():
         if x.time_active > x.max_time_active:
             overlays.remove(x)
             del x
+
+
+def purge_interaction_icons():
+    for x in interaction_icons:
+        interaction_icons.remove(x)
+        del x
 
 
 def draw_title_screen(display):
@@ -272,3 +291,17 @@ def on_unready_ability_trigger(num):
         pos = (540, 542)
     overlay = AbilityUnreadyOverlay(pos, 1)
     overlays.append(overlay)
+
+
+def draw_interaction_icon_for(target):
+    global interaction_icon_displaying
+    interaction_icon = InteractionIcon((0,0))
+    if target != 0:
+        if interaction_icon_displaying == False:
+            interaction_icon = InteractionIcon(target.get_pos())
+            interaction_icon_displaying = True
+            interaction_icons.append(interaction_icon)
+
+    elif target == 0:
+        purge_interaction_icons()
+        interaction_icon_displaying = False

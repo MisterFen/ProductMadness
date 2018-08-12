@@ -57,8 +57,8 @@ class Player:
         display.blit(self.img, (self.x, self.y))
 
     def on_move(self):
-        target = TargetHandler.get_closest_target_in_range()
-        #TODO: FINISH THIS
+        target = TargetHandler.get_closest_target_in_range(self)
+        UIHandler.draw_interaction_icon_for(target)
 
     def interact(self):
         if GameLogic.time_since_last_interact > GameLogic.max_interact_timer:

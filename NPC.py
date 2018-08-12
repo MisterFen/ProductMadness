@@ -185,3 +185,6 @@ class Dev(NPC):
             return "pacing"
         else:
             return "spinning"
+
+    def get_pos(self):
+        return self.x, self.y

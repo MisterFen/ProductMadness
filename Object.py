@@ -110,3 +110,6 @@ class Computer(Object):
 
     def start_buzzing(self):
         self.state = "buzzing"
+
+    def get_pos(self):
+        return self.x, self.y
