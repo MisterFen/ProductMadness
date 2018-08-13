@@ -19,13 +19,18 @@ def on_use():
     timer = random.randint(10, 50)
     if random_number == 1:
         set_sparkle("small")
-        print("Small")
     elif random_number == 2:
         set_sparkle("big")
-        print("Big")
     elif random_number == 3:
         set_sparkle("passive")
-        print("Passive")
+    increase_sparkles_used(1)
+
+
+def reset():
+    global sparkles_used, last_sparkle, timer
+    sparkles_used = 0
+    last_sparkle = 0
+    timer = 0
 
 
 def set_sparkle(size):
@@ -50,3 +55,14 @@ def draw(display):
 
 def draw_passive_sparkle(display, pos):
     display.blit(passive_sparkle_image, pos)
+
+
+def increase_sparkles_used(num):
+    global sparkles_used
+    sparkles_used += num
+    if sparkles_used >= 3:
+        on_three_sparkles()
+
+
+def on_three_sparkles():
+    print('Three sparkles!')
