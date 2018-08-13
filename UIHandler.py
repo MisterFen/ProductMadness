@@ -2,7 +2,7 @@ import pygame
 import Config, ScoreHandler, GameLogic
 from Hitmark import Hitmark
 from Button import Button
-from AbilityUnreadyOverlay import AbilityUnreadyOverlay
+from AbilityCooldownOverlay import AbilityUnreadyOverlay
 from InteractionIcon import InteractionIcon
 
 hitmarks = []
@@ -163,7 +163,7 @@ def draw_how_to_play_screen(display):
     display.blit(interact_ability_image, (50, 160))
     draw_message(display, 115, 170, 16, "(E) Interact: Interact with nearby objects or people")
     display.blit(shout_ability_image, (50, 230))
-    draw_message(display, 115, 240, 16, "(1) Shout: Make everyone back to work instantly")
+    draw_message(display, 115, 240, 16, "(1) Shout: Make everyone return to work instantly")
     display.blit(extend_deadline_ability_image, (50, 300))
     draw_message(display, 115, 310, 16, "(2) Extend Deadline: Increase the deadline timer slightly")
     display.blit(score_up_ability_image, (50, 370))

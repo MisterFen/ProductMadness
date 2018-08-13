@@ -138,15 +138,17 @@ class Dev(NPC):
     def on_player_interact(self):
         ScoreHandler.increase_score(1)
         if self.state == "spinning":
-            self.get_back_to_work(self.get_back_to_work_score)
+            self.return_to_work_from_spinning(self.get_back_to_work_score)
         elif self.state == "working":
             self.boop()
         elif self.state == "pacing":
             self.walk_back_to_desk(self.get_back_to_work_score)
+        elif self.state =="sparkling":
+            self.on_sparkle_interact()
 
     def on_shout(self):
         if self.state == "spinning":
-            self.get_back_to_work(self.on_shout_score)
+            self.return_to_work_from_spinning(self.on_shout_score)
         elif self.state == "working":
             self.boop()
         elif self.state == "pacing":
@@ -167,11 +169,14 @@ class Dev(NPC):
         UIHandler.create_hitmark(self.x - 50, self.y - 15, "Returning to desk")
         ScoreHandler.increase_score(score)
 
-    def get_back_to_work(self, score):
-        self.state = "working"
-        self.time_working = 0
+    def return_to_work_from_spinning(self, score):
+        self.back_to_work()
         UIHandler.create_hitmark(self.x - 50, self.y - 15, "Stopped Spinning!")
         ScoreHandler.increase_score(score)
+
+    def back_to_work(self):
+        self.state = "working"
+        self.time_working = 0
         self.face_starting_direction()
 
     def set_image(self):
@@ -193,6 +198,12 @@ class Dev(NPC):
             return "pacing"
         else:
             return "spinning"
+
+    def on_sparkle_interact(self):
+        self.back_to_work()
+        UIHandler.create_hitmark(self.x - 50, self.y - 15, "Sparkle Acknowledged!")
+        SparkleHandler.sparkles_used += 1
+        ScoreHandler.increase_score(9)
 
     def get_pos(self):
         return self.x, self.y
