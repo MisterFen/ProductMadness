@@ -60,9 +60,3 @@ def draw_passive_sparkle(display, pos):
 def increase_sparkles_used(num):
     global sparkles_used
     sparkles_used += num
-    if sparkles_used >= 3:
-        on_three_sparkles()
-
-
-def on_three_sparkles():
-    print('Three sparkles!')

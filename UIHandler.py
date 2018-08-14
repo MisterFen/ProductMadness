@@ -2,7 +2,7 @@ import pygame
 import Config, ScoreHandler, GameLogic
 from Hitmark import Hitmark
 from Button import Button
-from AbilityCooldownOverlay import AbilityUnreadyOverlay
+from AbilityOverlay import AbilityUnreadyOverlay
 from InteractionIcon import InteractionIcon
 
 hitmarks = []
@@ -13,6 +13,11 @@ interaction_icon_displaying = False
 
 selected_target = 0
 active_target = 0
+
+score_up_pos = (480, 542)
+shout_pos = (360, 542)
+sparkle_pos = (540, 542)
+extend_deadline_pos = (420, 542)
 
 button1 = Button(150, 500, 100, 50, "Play")
 button2 = Button(350, 500, 100, 50, "How to play")
@@ -41,6 +46,8 @@ shout_ability_image = pygame.image.load('art/shout_ability.png')
 extend_deadline_ability_image = pygame.image.load('art/deadline_ability.png')
 score_up_ability_image = pygame.image.load('art/score_up_ability.png')
 sparkle_ability_image = pygame.image.load('art/sparkle_ability.png')
+
+ability_ready_overlay_img = pygame.image.load('art/ability_ready_overlay.png')
 
 ability_label_e_img = pygame.image.load('art/ability_letter_e.png')
 ability_label_1_img = pygame.image.load('art/ability_number_1.png')
@@ -74,7 +81,11 @@ def draw_overlays(display):
     for x in overlays:
         display.blit(x.get_surface(), (x.x, x.y))
         x.on_tick()
-
+    if GameLogic.abilities_ready_to_use():
+        display.blit(ability_ready_overlay_img, shout_pos)
+        display.blit(ability_ready_overlay_img, extend_deadline_pos)
+        display.blit(ability_ready_overlay_img, score_up_pos)
+        display.blit(ability_ready_overlay_img, sparkle_pos)
 
 def draw_interaction_icons(display):
     for x in interaction_icons:
@@ -211,7 +222,7 @@ def draw_default_interaction(display):
 
 
 def draw_shout(display):
-    pos = (360, 542)
+    pos = shout_pos
     display.blit(shout_ability_image, pos)
     display.blit(ability_box_image, pos)
     time_until_can_use_ability = GameLogic.max_ability_timer - GameLogic.time_since_last_ability
@@ -225,7 +236,7 @@ def draw_shout(display):
 
 
 def draw_extend_deadline(display):
-    pos = (420, 542)
+    pos = extend_deadline_pos
     display.blit(extend_deadline_ability_image, pos)
     display.blit(ability_box_image, pos)
     time_until_can_use_ability = GameLogic.max_ability_timer - GameLogic.time_since_last_ability
@@ -239,7 +250,7 @@ def draw_extend_deadline(display):
 
 
 def draw_score_up(display):
-    pos = (480, 542)
+    pos = score_up_pos
     display.blit(score_up_ability_image, pos)
     display.blit(ability_box_image, pos)
     time_until_can_use_ability = GameLogic.max_ability_timer - GameLogic.time_since_last_ability
@@ -253,7 +264,7 @@ def draw_score_up(display):
 
 
 def draw_sparkle(display):
-    pos = (540, 542)
+    pos = sparkle_pos
     display.blit(sparkle_ability_image, pos)
     display.blit(ability_box_image, pos)
     time_until_can_use_ability = GameLogic.max_ability_timer - GameLogic.time_since_last_ability

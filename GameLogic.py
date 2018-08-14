@@ -72,3 +72,10 @@ def use_sparkle():
     Abilities.use_sparkle()
     global sparkle_active
     sparkle_active = True
+
+
+def abilities_ready_to_use():
+    if time_since_last_ability >= max_ability_timer:
+        return True
+    else:
+        return False
