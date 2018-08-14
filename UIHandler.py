@@ -48,6 +48,7 @@ score_up_ability_image = pygame.image.load('art/score_up_ability.png')
 sparkle_ability_image = pygame.image.load('art/sparkle_ability.png')
 
 ability_ready_overlay_img = pygame.image.load('art/ability_ready_overlay.png')
+ability_active_overlay_img = pygame.image.load('art/ability_active_overlay.png')
 
 ability_label_e_img = pygame.image.load('art/ability_letter_e.png')
 ability_label_1_img = pygame.image.load('art/ability_number_1.png')
@@ -86,6 +87,11 @@ def draw_overlays(display):
         display.blit(ability_ready_overlay_img, extend_deadline_pos)
         display.blit(ability_ready_overlay_img, score_up_pos)
         display.blit(ability_ready_overlay_img, sparkle_pos)
+    if GameLogic.score_up_active:
+        display.blit(ability_active_overlay_img, score_up_pos)
+    if GameLogic.sparkle_active:
+        display.blit(ability_active_overlay_img, sparkle_pos)
+
 
 def draw_interaction_icons(display):
     for x in interaction_icons:
