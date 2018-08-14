@@ -14,10 +14,11 @@ time_since_last_ability = 0
 max_ability_timer = 500
 score_up_active = False
 sparkle_active = False
+last_shout = 500
 
 
 def on_tick():
-    global current_timer, state, game_running, time_since_last_interact, time_since_last_ability, score_up_active, sparkle_active
+    global current_timer, state, game_running, time_since_last_interact, time_since_last_ability, score_up_active, sparkle_active, last_shout
     current_timer -= 1
     if current_timer <= 0:
         state = "high score"
@@ -34,7 +35,7 @@ def on_tick():
             SparkleHandler.timer -= 1
         else:
             sparkle_active = False
-
+    last_shout += 1
 
 def on_start():
     global game_running, current_timer
@@ -50,9 +51,9 @@ def on_use_ability():
     time_since_last_ability = 0
 
 
-def use_shout():
+def use_shout(x, y):
     on_use_ability()
-    Abilities.use_shout()
+    Abilities.use_shout(x, y)
 
 
 def use_extend_deadline():

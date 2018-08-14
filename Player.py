@@ -61,10 +61,13 @@ class Player:
 
     def use_ability(self, int):
         if int == 1:
-            GameLogic.use_shout()
+            GameLogic.use_shout(self.x, self.y)
         if int == 2:
             GameLogic.use_extend_deadline()
         if int == 3:
             GameLogic.use_score_up()
         if int == 4:
             GameLogic.use_sparkle()
+
+    def get_pos(self):
+        return self.x, self.y

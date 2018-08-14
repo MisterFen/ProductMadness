@@ -1,9 +1,14 @@
 import GameLogic, ScoreHandler, NPCHandler, SparkleHandler
 import random
+import pygame
 
 score_up_duration = 100
 score_up_multiplier = 3
 
+shout_pos_x = 0
+shout_pos_y = 0
+
+shout_img = pygame.image.load('art/shout.png')
 
 def use_extend_deadline():
     random.seed()
@@ -18,8 +23,12 @@ def use_score_up():
     ScoreHandler.set_score_modifier(score_up_multiplier)
 
 
-def use_shout():
+def use_shout(x, y):
+    global shout_pos_x, shout_pos_y
     NPCHandler.on_shout()
+    GameLogic.last_shout = 0
+    shout_pos_x = x
+    shout_pos_y = y
 
 
 def use_sparkle():
@@ -29,3 +38,5 @@ def use_sparkle():
 def draw(display):
     if GameLogic.sparkle_active:
         SparkleHandler.draw(display)
+    if GameLogic.last_shout < 35:
+        display.blit(shout_img, (shout_pos_x - 50, shout_pos_y - 56))
