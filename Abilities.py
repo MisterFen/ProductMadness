@@ -39,4 +39,4 @@ def draw(display):
     if GameLogic.sparkle_active:
         SparkleHandler.draw(display)
     if GameLogic.last_shout < 35:
-        display.blit(shout_img, (shout_pos_x - 50, shout_pos_y - 56))
+        display.blit(shout_img, (shout_pos_x - 50, shout_pos_y - 50))

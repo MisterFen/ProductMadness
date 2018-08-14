@@ -7,6 +7,7 @@ import TargetHandler
 
 class Player:
     img = pygame.image.load('art/player.png')
+    score_up_vfx = pygame.image.load('art/score_up_vfx.png')
 
     def __init__(self):
         self.x = Config.player_start_x
@@ -52,6 +53,8 @@ class Player:
 
         display.blit(self.img, (self.x, self.y))
         TargetHandler.draw_interaction_icon_for(self)
+        if GameLogic.score_up_active:
+            display.blit(self.score_up_vfx, self.get_pos())
 
     def interact(self):
         if GameLogic.time_since_last_interact > GameLogic.max_interact_timer:
