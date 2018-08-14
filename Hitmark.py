@@ -20,3 +20,23 @@ class Hitmark:
         self.y -= self.move_speed
         self.time_active += 1
 
+
+class ImageHitmark(Hitmark):
+    img = pygame.image.load('art/default.png')
+
+    def __init__(self, val, x, y):
+        self.x = x
+        self.y = y
+        self.move_speed = 0.1
+        self.time_active = 0
+        self.max_time_active = 85
+        if val == "extend deadline":
+            self.img = pygame.image.load('art/deadline_ability_hitmark.png')
+
+    def draw(self, display):
+        display.blit(self.img, (self.x, self.y))
+        self.y -= self.move_speed
+        self.time_active += 1
+
+    def get_image(self):
+        return self.img

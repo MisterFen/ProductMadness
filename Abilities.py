@@ -1,4 +1,4 @@
-import GameLogic, ScoreHandler, NPCHandler, SparkleHandler
+import GameLogic, ScoreHandler, NPCHandler, SparkleHandler, UIHandler
 import random
 import pygame
 
@@ -10,14 +10,15 @@ shout_pos_y = 0
 
 shout_img = pygame.image.load('art/shout.png')
 
-def use_extend_deadline():
+
+def use_extend_deadline(x, y):
     random.seed()
     max_deadline_increase = 200
     remaining_time_percentage = 1-(GameLogic.current_timer / GameLogic.start_timer)
     amount_to_increase = int(remaining_time_percentage * max_deadline_increase)
     amount_to_increase += random.randint(3, 30)
     GameLogic.current_timer += amount_to_increase
-
+    UIHandler.create_image_hitmark("extend deadline", x, y)
 
 def use_score_up():
     ScoreHandler.set_score_modifier(score_up_multiplier)

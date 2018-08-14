@@ -1,6 +1,7 @@
 import pygame
 import Config, ScoreHandler, GameLogic
 from Hitmark import Hitmark
+from Hitmark import ImageHitmark
 from Button import Button
 from AbilityOverlay import AbilityUnreadyOverlay
 from InteractionIcon import InteractionIcon
@@ -322,3 +323,9 @@ def draw_interaction_icon_for(target):
         interaction_icons.append(interaction_icon)
     if len(interaction_icons) > 1:
         interaction_icons.pop(0)
+
+
+def create_image_hitmark(val, x, y):
+    if val == "extend deadline":
+        hitmark = ImageHitmark(val, x, y)
+        hitmarks.append(hitmark)

@@ -66,7 +66,7 @@ class Player:
         if int == 1:
             GameLogic.use_shout(self.x, self.y)
         if int == 2:
-            GameLogic.use_extend_deadline()
+            GameLogic.use_extend_deadline(self.x, self.y)
         if int == 3:
             GameLogic.use_score_up()
         if int == 4:

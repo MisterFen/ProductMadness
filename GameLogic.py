@@ -56,9 +56,9 @@ def use_shout(x, y):
     Abilities.use_shout(x, y)
 
 
-def use_extend_deadline():
+def use_extend_deadline(x, y):
     on_use_ability()
-    Abilities.use_extend_deadline()
+    Abilities.use_extend_deadline(x, y)
 
 
 def use_score_up():
