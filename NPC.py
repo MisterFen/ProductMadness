@@ -18,8 +18,9 @@ class Dev(NPC):
     random.seed()
     img = pygame.image.load('art/dev1.png')
 
-    get_back_to_work_score = 49
-    on_shout_score = 2
+    get_back_to_work_score = 19
+    on_shout_score = 19
+    max_time_working_limit = 3000
 
     def __init__(self, x, y, direction):
         self.x = self.start_x = self.target_x = x
@@ -28,7 +29,7 @@ class Dev(NPC):
         self.height = 38
         self.state = "working"
         self.time_working = 0
-        self.time_working_limit = random.randint(300, 2000)
+        self.time_working_limit = random.randint(300, self.max_time_working_limit)
         self.time_since_rotated = 0
         self.rotate_increment = 90
         self.angle = 90
@@ -37,13 +38,14 @@ class Dev(NPC):
         self.speed = 1
         self.times_rotated = 0
         self.starting_direction = direction
+        self.moving_left = self.moving_right = self.moving_down = self.moving_up = False
 
     def on_start(self):
         self.x = self.start_x
         self.y = self.start_y
         self.state = "working"
         self.time_working = 0
-        self.time_working_limit = random.randint(300, 1000)
+        self.time_working_limit = random.randint(300, self.max_time_working_limit)
         self.time_since_rotated = 0
         self.img_rect = self.img.get_rect()
         self.set_image()
@@ -80,23 +82,32 @@ class Dev(NPC):
                 self.time_working = 0
                 self.state = "working"
                 self.face_starting_direction()
+                self.stopped_moving()
 
     def move_toward_y(self, y):
         if self.y < y:
+            self.moving_up = True
+            self.moving_down = False
             self.y += self.speed
             if y - self.y < 1:
                 self.y = y
         elif self.y > y:
+            self.moving_down = True
+            self.moving_up = False
             self.y -= self.speed
             if self.y - y < 1:
                 self.y = y
 
     def move_toward_x(self, x):
         if self.x < x:
+            self.moving_right = True
+            self.moving_left = False
             self.x += self.speed
             if x - self.x < 1:
                 self.x = x
         elif self.x > x:
+            self.moving_right = False
+            self.moving_left = True
             self.x -= self.speed
             if self.x - x < 1:
                 self.x = x
@@ -207,3 +218,9 @@ class Dev(NPC):
 
     def get_pos(self):
         return self.x, self.y
+
+    def stopped_moving(self):
+        self.moving_up = False
+        self.moving_down = False
+        self.moving_left = False
+        self.moving_right = False
