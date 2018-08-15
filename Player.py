@@ -6,11 +6,25 @@ import TargetHandler
 
 
 class Player:
-    img = idle_image = pygame.image.load('art/player.png')
+    img = idle_image = pygame.image.load('art/player_idle_down.png')
+    idle_image_down = pygame.image.load('art/player_idle_down.png')
+    idle_image_up = pygame.image.load('art/player_idle_up.png')
+    idle_image_left = pygame.image.load('art/player_idle_left.png')
+    idle_image_right = pygame.image.load('art/player_idle_right.png')
+
     score_up_vfx = pygame.image.load('art/score_up_vfx.png')
-    walking_image1 = pygame.image.load('art/player_walking1.png')
-    walking_image2 = pygame.image.load('art/player_walking2.png')
-    walking_images = [walking_image1, walking_image2]
+    walking_left_image_1 = pygame.image.load('art/player_walking_left_1.png')
+    walking_left_image_2 = pygame.image.load('art/player_walking_left_2.png')
+    walking_left_images = [walking_left_image_1, walking_left_image_2]
+    walking_right_image_1 = pygame.image.load('art/player_walking_right_1.png')
+    walking_right_image_2 = pygame.image.load('art/player_walking_right_2.png')
+    walking_right_images = [walking_right_image_1, walking_right_image_2]
+    walking_down_image_1 = pygame.image.load('art/player_walking_down_1.png')
+    walking_down_image_2 = pygame.image.load('art/player_walking_down_2.png')
+    walking_down_images = [walking_down_image_1, walking_down_image_2]
+    walking_up_image_1 = pygame.image.load('art/player_walking_up_1.png')
+    walking_up_image_2 = pygame.image.load('art/player_walking_up_2.png')
+    walking_up_images = [walking_up_image_1, walking_up_image_2]
 
     def __init__(self):
         self.x = Config.player_start_x
@@ -29,8 +43,6 @@ class Player:
         self.time_moving = 0
         self.walking_anim_speed = 6
         self.last_direction = "down"
-        self.rotate_index = 0
-        self.expected_rotate_index = 0
 
     def on_start(self):
         self.x = Config.player_start_x
@@ -43,6 +55,7 @@ class Player:
         self.time_since_last_interact = 0
 
     def draw(self, display):
+        anim_array = []
         if self.moving_up:
             self.y -= self.speed
             self.last_direction = "up"
@@ -64,18 +77,27 @@ class Player:
             if check_object_collision(self, tables):
                 self.x -= self.speed
 
+        if self.moving_left:
+            anim_array = self.walking_left_images
+        elif self.moving_right:
+            anim_array = self.walking_right_images
+        elif self.moving_down:
+            anim_array = self.walking_down_images
+        elif self.moving_up:
+            anim_array = self.walking_up_images
+
         if self.is_moving():
             self.time_moving += 1
             if self.time_moving >= self.walking_anim_speed:
                 self.time_moving = 0
                 self.moving_index += 1
-                if self.moving_index > len(self.walking_images):
+                if self.moving_index > len(anim_array):
                     self.moving_index = 0
 
             if self.moving_index == 0:
-                self.img = self.walking_images[0]
+                self.img = anim_array[0]
             elif self.moving_index == 1:
-                self.img = self.walking_images[1]
+                self.img = anim_array[1]
         else:
             self.img = self.idle_image
             self.time_moving = 0
@@ -94,34 +116,25 @@ class Player:
                 TargetHandler.get_closest_target(self).on_player_interact()
                 GameLogic.time_since_last_interact = 0
 
-    def use_ability(self, int):
-        if int == 1:
+    def use_ability(self, num):
+        if num == 1:
             GameLogic.use_shout(self.x, self.y)
-        if int == 2:
+        if num == 2:
             GameLogic.use_extend_deadline(self.x, self.y)
-        if int == 3:
+        if num == 3:
             GameLogic.use_score_up()
-        if int == 4:
+        if num == 4:
             GameLogic.use_sparkle()
 
     def face_last_direction(self):
         if self.last_direction == "left":
-            self.expected_rotate_index = 1
+            self.idle_image = self.idle_image_left
         elif self.last_direction == "up":
-            self.expected_rotate_index = 2
+            self.idle_image = self.idle_image_up
         elif self.last_direction == "right":
-            self.expected_rotate_index = 3
+            self.idle_image = self.idle_image_right
         elif self.last_direction == "down":
-            self.expected_rotate_index = 0
-        while self.rotate_index != self.expected_rotate_index:
-            self.rotate()
-
-    def rotate(self):
-        print("Rotated!")
-        self.img = pygame.transform.rotate(self.img, 90)
-        self.rotate_index += 1
-        if self.rotate_index >= 4:
-            self.rotate_index = 0
+            self.idle_image = self.idle_image_down
 
     def get_pos(self):
         return self.x, self.y
