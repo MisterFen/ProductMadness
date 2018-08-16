@@ -50,6 +50,7 @@ class Dev(NPC):
         self.img_rect = self.img.get_rect()
         self.set_image()
         self.speed = 1
+        self.times_rotated = 0
         self.face_starting_direction()
 
     def on_tick(self):
@@ -214,7 +215,7 @@ class Dev(NPC):
         self.back_to_work()
         UIHandler.create_hitmark(self.x - 50, self.y - 15, "Sparkle Acknowledged!")
         SparkleHandler.sparkles_used += 1
-        ScoreHandler.increase_score(9)
+        ScoreHandler.increase_score(99)
 
     def get_pos(self):
         return self.x, self.y

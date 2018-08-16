@@ -37,6 +37,7 @@ def on_tick():
             sparkle_active = False
     last_shout += 1
 
+
 def on_start():
     global game_running, current_timer
     game_running = True
